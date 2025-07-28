@@ -52,6 +52,3 @@ console.log(fruits);
     console.log(fruits);
 
 })("Banana", "Kiwi");
-
-
-// add "Red" & "Blue" at the end of this Array.

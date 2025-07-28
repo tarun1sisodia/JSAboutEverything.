@@ -22,6 +22,14 @@ console.dir(a);
 
 let img = document.querySelector("img");
 
-// img.setAttribute("src", "https://www.linkedin.com/in/tarun1sisodia/");
+img.setAttribute("src", "https://www.linkedin.com/in/tarun1sisodia/");
 
 // console.dir(img);
+
+let img1 = document.querySelector("a");
+
+console.log(img1.getAttribute('href'));
+
+a.removeAttribute('href');
+
+console.dir(a);

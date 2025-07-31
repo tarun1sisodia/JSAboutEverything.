@@ -1,54 +1,18 @@
-
-/*&let img = document.querySelector("img");
-
-console.log(img.src);
-
-let attribute = img.getAttribute('src');
-
-console.log(attribute);
-
-
-let imge2 = document.querySelector('img').getAttribute('src');
-let imge3 = document.querySelector('img').setAttribute('src', 'href the doe');
-
-console.log(imge2);
-console.log(imge3);
-
-// let serhy = document.querySelector("a").setAttribute('href', "https://www.sheryians.com/");
-
-// console.log(serhy);
-
-// document.querySelector("a");
-// a.href = 'workig'
-
-let divs = document.querySelector('div');
-divs.setAttribute("title", "Div h yeu.");
-
-console.log(divs);
-
-let buton = document.querySelector('button');
-buton.removeAttribute('disabled');
-
-console.log(buton);
-
-// we are creating Elements.
-let h1 = document.createElement('h1');
-h1.textContent = 'Tarun'
-
-console.log(h1);
-//apendChild will add in the last.
-//prepend will add beore the first
-
-// h1.removeChild('h1');
-*/
 let ul = document.querySelector("ul");
-let li = document.createElement('li')
-ul.textContent = "Tarunss";
-ul.appendChild(li);
+let li = document.createElement("li");
+li.textContent = "Live at slack";
 
-let divsa = document.querySelector('div');
-let neimage = document.createElement('img');
+let add = ul.appendChild(li);
 
-neimage.setAttribute('src', 'yes sir account');
+console.log(add);
 
-document.querySelector('div').prepend(divsa);
+let img = document.createElement('img');
+
+img.setAttribute("src", "https://images.unsplash.com/photo-1744359678374-4769eacf44d6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8");
+// okay ye jo img h ye abhi string ki trh kam kr rhi h .
+// document.querySelector("div").prepend('img');
+img.classList.add("placeholder")
+
+document.querySelector("div").prepend(img);
+
+

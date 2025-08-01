@@ -113,14 +113,4 @@ When your JavaScript script runs:
 
 * The profile should **look completely transformed**.
 * You must **not** manually edit the HTML file for changes — all changes happen through JavaScript.
-
----
-
-```
-
----
-
-If you want, I can now make **another `.md` file** for your **previous DOM list manipulation project** so your GitHub has **both challenges** documented.  
-
-Do you want me to do that next?
 ```

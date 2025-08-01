@@ -37,6 +37,9 @@ let changeALl = document.querySelectorAll("li");
 
 changeALl[1].textContent = "replacing with answer 3";
 
+// Another way to write this 
+// let update = document.querySelectorAll("li")[1].textContent = "Now Skipper is Here";
+
 //**************************************************************************** */
 //4. Remove the last element from list.
 //**************************************************************************** */

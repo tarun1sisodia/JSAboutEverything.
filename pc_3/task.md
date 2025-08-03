@@ -4,7 +4,6 @@
 These challenges are designed to sharpen your **JavaScript fundamentals** and **DOM manipulation skills** without using event listeners.  
 Focus only on **primitive data types** and **core concepts**.
 
----
 
 ## 1️⃣ Closures & Lexical Scoping – Text Generator
 - Create a **function** that keeps a counter in memory using **closures**.
@@ -13,8 +12,6 @@ Focus only on **primitive data types** and **core concepts**.
 This is paragraph #X
 
 - You must store the counter **inside the closure**, not in a global variable.
-
----
 
 ## 2️⃣ Primitive Type Handling – Profile Info
 - Store your **name** (string), **age** (number), and **isStudent** (boolean) in separate variables.
@@ -26,9 +23,6 @@ Name: Tarun (string)
 Age: 24 (number)
 Is Student: true (boolean)
 
-````
-
----
 
 ## 3️⃣ Comparison Operators – Access Control
 - Store a number in a variable called `userLevel`.
@@ -37,7 +31,6 @@ Is Student: true (boolean)
 - If it’s anything else, insert `"No Access"`.
 - You must use **strict comparison (`===`)** and avoid loose comparison.
 
----
 
 ## 4️⃣ Nullish Coalescing & Default Values
 - Create variables:
@@ -49,8 +42,6 @@ let displayName = username ?? "Guest User";
 * Insert a `<h2>` in the DOM showing the final display name.
 * Change `username` to a valid string and verify that the value updates **only when it’s not null or undefined**.
 
----
-
 ## 5️⃣ Loops + DOM – Countdown Creator
 
 * Use a **for loop** to create `<p>` elements counting down from 10 to 1.
@@ -58,10 +49,8 @@ let displayName = username ?? "Guest User";
 
   ```
   Countdown: X
-  ```
 * Append them inside a `<div>`.
 
----
 
 ## 6️⃣ Boolean Logic – Login Simulator
 

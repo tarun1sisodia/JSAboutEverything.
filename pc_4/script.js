@@ -17,6 +17,8 @@ p.removeEventListener("dblclick", dblclick);
 
 function keydown() {
     p.textContent = "Please Enter Your Name";
+    p.style.fontSize = "20px";
+    p.style.color = "cyan";
 }
 
 //run this Function when you know 
@@ -29,6 +31,7 @@ function input(evt) {
     // console.log('Typed');
     if (evt.data !== null) {
         console.log(evt.data); //data is predefined
+        console.log(evt); //data is predefined
     }
 }
 
@@ -36,11 +39,15 @@ inputt.addEventListener("input", input);
 
 let sel = document.querySelector("select");
 
-function change(details) {
-    console.log(details.target.value);
-    if (details.target.value === "mi") {
-        keydown(p.textContent = `Device Selected: ${details.target.value}`);
+let device = document.querySelector("#device");
 
+function change(details) {
+    if (details.target.value) {
+
+        console.log(details.target.value);
+
+        device.textContent = `Device Selected: ${details.target.value}`;
+             
     }
 
 }

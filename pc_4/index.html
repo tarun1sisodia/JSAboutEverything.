@@ -5,18 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        h3 {
+            text-transform: capitalize;
+        }
+    </style>
 </head>
 
 <body style="background-color: black;color: blanchedalmond;">
     <p></p>
     <input type="text" placeholder="Name" style="height: 30px; width: 100%; padding: 10px; font-size: 30px;">
-    <h3>Select Your Device</h3>
+    <h3 id="device">Select Your Device</h3>
+
     <select style="height: 30px; width: 100%;">
         <option disabled selected>Choose Your Device</option>
+
+        <!-- Value likhna important -->
         <option value="samsung">Samsung</option>
         <option value="mi">Xioami</option>
         <option value="oppo">Oppo</option>
         <option value="apple">Iphone</option>
+        <option value="">Android
+
+        </option>
         <script src="script.js"></script>
     </select>
 </body>

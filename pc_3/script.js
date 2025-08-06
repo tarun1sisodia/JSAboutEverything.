@@ -38,7 +38,7 @@ ul.appendChild(li3);
 
 // 3️⃣ Comparison Operators – Access Control
 
-// let userLevel = +prompt('Acces Control');
+let userLevel = +prompt('Acces Control');
 
 if (userLevel === 1) {
     let mypara = document.querySelector(".addContent");
@@ -55,6 +55,7 @@ else if (userLevel === 2) {
     mypara.appendChild(access);
 }
 else {
+
     let mypara = document.querySelector(".addContent");
     let access = document.createElement("p");
     access.textContent = "No Access";
@@ -76,13 +77,27 @@ else {
 let username = null;
 let displayName = username ?? " Guest User";
 
-let h2Insert = document.createElement("h2");
+let addContent2 = document.querySelector(".addContent2");
 
 username = prompt("Username:");
 
+let h2Insert = document.createElement("h2");
+
 h2Insert.textContent = `Display Name: ${displayName}`;
+if (username != null) {
+
+    console.log(username);
+    addContent2.prepend(h2Insert);
+}
+
+// 5️⃣ Loops + DOM – Countdown Creator
 
 
+for (let i = 10; i >= 1; i--) {
+    let createP = document.createElement("p");
+    createP.textContent = `Countdown: ${i}`;
+    addContent2.append(createP);
+}
 
 
 

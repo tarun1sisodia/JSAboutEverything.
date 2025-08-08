@@ -86,7 +86,7 @@ function change(dets) {
             // image ko input ke upar lagana
             createDivSelect.insertBefore(img, inputCreate);
 
-            dets.target.value = "";
+            dets.target.value = "Tarun Sisodia"; //hardcored value to appear in Input field
         }
     }
 

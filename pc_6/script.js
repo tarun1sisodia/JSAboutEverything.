@@ -14,6 +14,8 @@ function choose(dets) {
     const filename = dets.target.files[0];
     if (filename)
         btn.textContent = `File Selected ${filename.name}`;
+    else
+        btn.textContent = `No Files Uploaded`;
     // btn.textContent = `File Selected ${dets.target.value}`;
 
 }

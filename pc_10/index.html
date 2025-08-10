@@ -1,12 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PC 10</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: #ff9800;
+        }
+
+        #nav {
+            background-color: #333;
+            /* dark background */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+        }
+
+        #nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+
+        #nav a:hover {
+            text-decoration: underline;
+        }
+
+        #nav button {
+            background-color: #ff9800;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+        }
+
+        #nav button:hover {
+            background-color: #e68900;
+        }
+    </style>
 </head>
+
 <body>
+    <div id="main">
+        <div id="nav">
+            <div>
+                <a href="">Home</a>
+                <a href="">About</a>
+            </div>
+            <button>Like and Connect</button>
+        </div>
+    </div>
     <h1>Welcome to PC 10</h1>
     <script src="script.js"></script>
 </body>
+
 </html>

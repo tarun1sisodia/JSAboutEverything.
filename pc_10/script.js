@@ -1,4 +1,4 @@
-// PC 10 JavaScript file
-console.log("Hello from PC 10!");
+// Event Bubbling..
 
-// Your code here
+document.querySelector("#nav").addEventListener("click", (i) => { alert("Clicked"); });
+

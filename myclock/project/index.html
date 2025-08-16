@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Digital Clock</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading" class="loading-screen">
+        <div class="loading-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12,6 12,12 16,14"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Main Clock Container -->
+    <div id="app" class="app-container">
+        <!-- Animated Background Elements -->
+        <div class="background-blobs">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+
+        <!-- Floating Particles -->
+        <div id="particles" class="particles-container"></div>
+
+        <!-- Main Clock Container -->
+        <div class="clock-wrapper">
+            <div class="clock-container">
+                <!-- Clock Header -->
+                <div class="clock-header">
+                    <svg class="clock-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12,6 12,12 16,14"/>
+                    </svg>
+                    <h1 class="clock-title">Digital Clock</h1>
+                </div>
+
+                <!-- Main Clock Display -->
+                <div class="clock-display">
+                    <div class="time-container">
+                        <!-- Hours -->
+                        <div class="time-unit">
+                            <div class="time-number-wrapper">
+                                <div id="hours" class="time-number">00</div>
+                                <div id="hours-glow" class="time-glow">00</div>
+                            </div>
+                            <div class="time-label">Hours</div>
+                        </div>
+
+                        <!-- Separator -->
+                        <div class="time-separator">:</div>
+
+                        <!-- Minutes -->
+                        <div class="time-unit">
+                            <div class="time-number-wrapper">
+                                <div id="minutes" class="time-number">00</div>
+                                <div id="minutes-glow" class="time-glow">00</div>
+                            </div>
+                            <div class="time-label">Minutes</div>
+                        </div>
+
+                        <!-- Separator -->
+                        <div class="time-separator">:</div>
+
+                        <!-- Seconds -->
+                        <div class="time-unit">
+                            <div class="time-number-wrapper">
+                                <div id="seconds" class="time-number">00</div>
+                                <div id="seconds-glow" class="time-glow">00</div>
+                            </div>
+                            <div class="time-label">Seconds</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date Display -->
+                <div class="date-container">
+                    <div class="date-display">
+                        <div id="date" class="date-text">Loading...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Corner Decorations -->
+            <div class="corner-decoration corner-top-left"></div>
+            <div class="corner-decoration corner-top-right"></div>
+            <div class="corner-decoration corner-bottom-left"></div>
+            <div class="corner-decoration corner-bottom-right"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

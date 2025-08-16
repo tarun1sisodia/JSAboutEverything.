@@ -17,11 +17,11 @@ ul.addEventListener("mouseout", (i) => {
 });
 */
 
-// ul.addEventListener("click", (dets) => {
-//     // dets.target.classList.add("lt"); 
-//     dets.target.classList.toggle("lt");
-// });
-/*
+ul.addEventListener("click", (dets) => {
+    // dets.target.classList.add("lt"); 
+    dets.target.classList.toggle("lt");
+});
+
 let btn = document.querySelector("button");
 let a = document.querySelector(".a");
 let b = document.querySelector(".b");
@@ -40,9 +40,8 @@ c.addEventListener("click", (i) => {
 b.addEventListener("click", (i) => {
     console.log(`B Clicked`);
     // console.log(i);
-});
+}, true);
 a.addEventListener("click", (i) => {
     console.log(`a Clicked`);
     // console.log(i);
 });
-*/

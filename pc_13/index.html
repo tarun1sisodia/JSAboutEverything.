@@ -1,12 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PC 13</title>
+    <style>
+        html,
+        body {
+            background-color: black;
+            color: blanchedalmond;
+            font-size: 30px;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        input {
+            font-size: 30px;
+            border-radius: 10px;
+        }
+
+        select {
+            font-size: 30px;
+            border-radius: 10px;
+
+        }
+    </style>
 </head>
+
 <body>
     <h1>Welcome to PC 13</h1>
+    <form>
+        <input id="name" type="text" placeholder="Name">
+        <br><br>
+        <input id="email" type="email" placeholder="Email">
+        <br><br>
+        <input id="password" type="password" placeholder="Password">
+        <br><br>
+        <select name="gender" id="select">
+            <option selected disabled>Select Your Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="gay">Gay</option>
+        </select>
+        <br><br>
+        <textarea placeholder="Tell us about yourself.?"></textarea>
+        <br><br>
+        <input type="submit">
+    </form>
     <script src="script.js"></script>
 </body>
+
 </html>

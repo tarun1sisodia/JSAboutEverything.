@@ -1,4 +1,17 @@
-// PC 15 JavaScript file
-console.log("Hello from PC 15!");
+let count = 11;
+let c = setInterval(() => {
+    if (count > 0) {
+        count--;
+        console.log(count);
+    }
+    else
+        clearInterval(c);
+}, 1000);
+let h2 = document.querySelector("h2")
 
-// Your code here
+
+let h2hide = setTimeout(() => {
+    h2.style.display = "none";
+}, 3000);
+
+

@@ -9,3 +9,5 @@ function mouseLeave() {
 
 mainDiv.addEventListener("mouseover", mouseOver);
 mainDiv.addEventListener("mouseout", mouseLeave);
+
+let seconds = 5;

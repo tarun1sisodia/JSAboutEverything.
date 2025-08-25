@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PC 14</title>
+    <style>
+        html,
+        body {
+            padding: 30px;
+            background-color: black;
+            color: chocolate;
+            align-items: center;
+            justify-items: center;
+        }
+
+        #form {
+            font-size: 30px;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Welcome to PC 14</h1>
+    <form id="form">
+        <input type="text" placeholder="name" minlength="2" maxlength="5" required autocomplete="off">
+        <input type="email" placeholder="email">
+        <input type="submit">
+    </form>
     <script src="script.js"></script>
 </body>
+
 </html>

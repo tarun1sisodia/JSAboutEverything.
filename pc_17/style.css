@@ -1,0 +1,36 @@
+ body {
+     /* align-items: center; */
+     /* justify-items: center; */
+     margin: 0;
+     /* align-content: center; */
+ }
+
+ body.light {
+     background-color: white;
+     color: black;
+ }
+
+
+ body.dark {
+     background-color: black;
+     color: antiquewhite;
+ }
+
+ .container {
+     display: flex;
+     height: 100vh;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+ }
+
+ button {
+     margin-top: 20px;
+     padding: 10px 20px;
+     font-size: 16px;
+     cursor: pointer;
+     border: none;
+     border-radius: 6px;
+     background-color: #999;
+     color: white;
+ }

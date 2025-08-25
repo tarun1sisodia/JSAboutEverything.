@@ -1,4 +1,7 @@
-// PC 14 JavaScript file
-console.log("Hello from PC 14!");
+let form = document.querySelector("#form");
 
-// Your code here
+form.addEventListener((dets) => {
+    let emailans = document.querySelector("input");
+    console.log(emailans);
+
+});

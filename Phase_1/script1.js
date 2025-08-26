@@ -11,7 +11,7 @@ let dulhan = "Laby"
 
 //Now marriage can be inter changes..
 
-dulha = "Haramjaaza"
+dulha = "Haramjaada"
 
 dulha + " Weds " + dulhan
 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            background-color: black;
+            color: bisque;
+        }
+    </style>
+</head>
+
+<body>
+
+</body>
+<script>
+    //Create an Element.
+    const div = document.createElement("div");
+    //Add Class to Div
+    div.className = "main";
+    div.id = Math.floor(Math.random() * 10 + 1);
+    console.log(div);
+    div.setAttribute("title", "chaicode");
+    div.style.backgroundColor = "grey";
+    div.style.padding = "25px";
+    // div.innerHTML = "Chai Aur Code"; //use 2 hops.
+    const addText = document.createTextNode("Chai Aur Code");
+    div.appendChild(addText);
+    document.body.appendChild(div);
+
+    //Advance Version
+
+    function createEle(Elementname, classname, id, setAttTitle, setAttValue, bgColor, padd, cTextNode) {
+        const element = document.createElement(Elementname);
+        element.className = classname;
+        element.id = id;
+        console.log(element);
+        element.setAttribute(setAttTitle, setAttValue);
+        element.style.backgroundColor = bgColor;
+        element.style.padding = padd + "px";
+        const newTextNode = document.createTextNode(cTextNode);
+        element.appendChild(newTextNode);
+        document.body.appendChild(element);
+    }
+    createEle('div', 'brave', 'search', 'title', 'Tarun', 'green', '25', 'My Function Works Baby');
+    createEle('div', 'chrome', 'Chromium', 'title', 'Google', 'cyan', '25', 'White h ye to ');
+
+</script>
+
+</html>

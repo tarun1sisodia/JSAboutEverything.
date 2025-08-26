@@ -5,7 +5,7 @@
 //  then-->Cannot access 'tdz' before initialization
 // The variable doesn't exists then it will return us -- tdz is not defined.
 
-// let tdz = "Dead Zone." // if the variable doesn't exists then it will return us ReferenceError: tdz is not defined
+// let tdz = "Dead Zone." // if the variable doesn't exists then it will return us                      ReferenceError: tdz is not defined
 
 //tdz- utna area jitna m javascript ko pata h ki variable exists krta h but access nhi kr skti ..
 // ... that is called the temporal dead zone.
@@ -24,3 +24,8 @@ let tdzd = "Some" //from the line 1 to here 104 line is the temporal dead zone f
 
 
 //REMEMBER---VAR DOESN'T HAVE TEMPORAL DEAD ZONE BECAUSE WE CAN ACCESS THE VAR  IN ANYWHERE. BEFORE INIITLIAZATIO. 
+
+/*  Revised my Old Code Base.
+console.log(tar);
+
+let tar = "Tarun"; */

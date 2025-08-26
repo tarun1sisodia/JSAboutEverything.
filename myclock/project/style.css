@@ -201,6 +201,10 @@ body {
     color: #3b82f6;
 }
 
+.time-unit:nth-child(6) .time-glow {
+    color: #ff0000;
+}
+
 .time-unit:hover .time-glow {
     opacity: 0.7;
 }
@@ -223,6 +227,9 @@ body {
 
 .time-unit:nth-child(5) .time-label {
     color: #93c5fd;
+}
+.time-unit:nth-child(6) .time-label {
+    color: #ffd414;
 }
 
 .time-separator {
@@ -310,22 +317,28 @@ body {
     0% {
         transform: translate(0px, 0px) scale(1);
     }
+
     33% {
         transform: translate(30px, -50px) scale(1.1);
     }
+
     66% {
         transform: translate(-20px, 20px) scale(0.9);
     }
+
     100% {
         transform: translate(0px, 0px) scale(1);
     }
 }
 
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0px);
         opacity: 0.3;
     }
+
     50% {
         transform: translateY(-20px);
         opacity: 0.8;
@@ -333,9 +346,12 @@ body {
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
     }
+
     50% {
         opacity: 0.5;
     }
@@ -346,6 +362,7 @@ body {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -357,24 +374,24 @@ body {
     .time-container {
         gap: 16px;
     }
-    
+
     .time-number,
     .time-glow {
         font-size: 64px;
     }
-    
+
     .time-separator {
         font-size: 48px;
     }
-    
+
     .clock-display {
         padding: 32px 24px;
     }
-    
+
     .clock-title {
         font-size: 20px;
     }
-    
+
     .date-text {
         font-size: 16px;
     }
@@ -384,20 +401,20 @@ body {
     .time-container {
         gap: 12px;
     }
-    
+
     .time-number,
     .time-glow {
         font-size: 48px;
     }
-    
+
     .time-separator {
         font-size: 36px;
     }
-    
+
     .clock-display {
         padding: 24px 16px;
     }
-    
+
     .time-label {
         font-size: 10px;
     }

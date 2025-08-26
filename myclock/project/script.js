@@ -1,6 +1,6 @@
 // State management
 let mounted = false;
-let time = { hours: '00', minutes: '00', seconds: '00' };
+let time = { hours: '00', minutes: '00', seconds: '00', miniseconds: '00' };
 
 // DOM elements
 const loadingScreen = document.getElementById('loading');
@@ -8,9 +8,11 @@ const appContainer = document.getElementById('app');
 const hoursElement = document.getElementById('hours');
 const minutesElement = document.getElementById('minutes');
 const secondsElement = document.getElementById('seconds');
+const minisecondsElement = document.getElementById('miniseconds');
 const hoursGlow = document.getElementById('hours-glow');
 const minutesGlow = document.getElementById('minutes-glow');
 const secondsGlow = document.getElementById('seconds-glow');
+const minisecondsGlow = document.getElementById('miniseconds-glow');
 const dateElement = document.getElementById('date');
 const particlesContainer = document.getElementById('particles');
 
@@ -18,35 +20,35 @@ const particlesContainer = document.getElementById('particles');
 function init() {
     // Create floating particles
     createParticles();
-    
+
     // Hide loading screen after a short delay
     setTimeout(() => {
         loadingScreen.classList.add('hidden');
         appContainer.classList.add('animate-in');
         mounted = true;
-        
+
         // Start the clock
         updateClock();
-        setInterval(updateClock, 1000);
+        setInterval(updateClock, 0);
     }, 1000);
 }
 
 // Create floating particles
 function createParticles() {
-    const particleCount = 20;
-    
+    const particleCount = 100;
+
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
-        
+
         // Random positioning
         particle.style.left = Math.random() * 100 + '%';
         particle.style.top = Math.random() * 100 + '%';
-        
+
         // Random animation delay and duration
         particle.style.animationDelay = Math.random() * 5 + 's';
         particle.style.animationDuration = (3 + Math.random() * 4) + 's';
-        
+
         particlesContainer.appendChild(particle);
     }
 }
@@ -54,20 +56,22 @@ function createParticles() {
 // Update clock function
 function updateClock() {
     if (!mounted) return;
-    
+
     const now = new Date();
-    
+
     const newTime = {
         hours: now.getHours().toString().padStart(2, '0'),
         minutes: now.getMinutes().toString().padStart(2, '0'),
-        seconds: now.getSeconds().toString().padStart(2, '0')
+        seconds: now.getSeconds().toString().padStart(2, '0'),
+        miniseconds: now.getMilliseconds().toString().padStart(3, '0')
     };
-    
+
     // Update time display with smooth transitions
     updateTimeElement(hoursElement, hoursGlow, newTime.hours, time.hours);
     updateTimeElement(minutesElement, minutesGlow, newTime.minutes, time.minutes);
     updateTimeElement(secondsElement, secondsGlow, newTime.seconds, time.seconds);
-    
+    updateTimeElement(minisecondsElement, minisecondsGlow, newTime.miniseconds, time.miniseconds);
+
     // Update date
     const dateString = now.toLocaleDateString('en-US', {
         weekday: 'long',
@@ -76,7 +80,7 @@ function updateClock() {
         day: 'numeric'
     });
     dateElement.textContent = dateString;
-    
+
     // Store current time
     time = newTime;
 }
@@ -87,11 +91,11 @@ function updateTimeElement(element, glowElement, newValue, oldValue) {
         // Add transition class
         element.style.transform = 'scale(1.1)';
         glowElement.style.transform = 'scale(1.1)';
-        
+
         // Update content
         element.textContent = newValue;
         glowElement.textContent = newValue;
-        
+
         // Reset transform after animation
         setTimeout(() => {
             element.style.transform = 'scale(1)';
@@ -100,10 +104,10 @@ function updateTimeElement(element, glowElement, newValue, oldValue) {
     }
 }
 
-// Add hover effects to time units
+// hover effects to time units
 function addHoverEffects() {
     const timeUnits = document.querySelectorAll('.time-unit');
-    
+
     timeUnits.forEach(unit => {
         unit.addEventListener('mouseenter', () => {
             const glow = unit.querySelector('.time-glow');
@@ -111,7 +115,7 @@ function addHoverEffects() {
                 glow.style.opacity = '0.7';
             }
         });
-        
+
         unit.addEventListener('mouseleave', () => {
             const glow = unit.querySelector('.time-glow');
             if (glow) {

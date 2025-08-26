@@ -1,0 +1,52 @@
+html,
+body {
+    background-color: black;
+    color: chocolate;
+    align-items: center;
+    justify-items: center;
+}
+
+/* .buttons {
+    margin: 5%;
+    padding: 10%;
+} */
+
+#grey {
+    font-size: 30px;
+    height: 30%;
+    width: 40%;
+    border-color: bisque;
+    background-color: grey;
+    color: white;
+    cursor: pointer;
+}
+
+#white {
+    font-size: 30px;
+    height: 30%;
+    width: 40%;
+    border-color: bisque;
+    background-color: white;
+    color: rgb(165, 18, 18);
+    cursor: pointer;
+}
+
+#blue {
+    font-size: 30px;
+    height: 30%;
+    width: 40%;
+    border-color: bisque;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+}
+
+#black {
+    font-size: 30px;
+    height: 30%;
+    width: 40%;
+    border-color: bisque;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    cursor: pointer;
+}

@@ -48,6 +48,3 @@ btn.addEventListener("click", function () {
         localStorage.setItem("theme", "dark");
     }
 });
-/* 
-btn.removeEventListener('click', clicked);
- */

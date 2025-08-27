@@ -28,4 +28,13 @@ JSON.parse(localStorage.getItem("chutiya")); //Parsing Because to unlock the JSO
 
 localStorage.getItem("group");
 
+document.cookie = "age = 26";
+
+document.cookie = "Name=Tarun";
+
+document.cookie = "email=tare@gmail.com";
+
+document.cookie;
+
+localStorage.clear();
 

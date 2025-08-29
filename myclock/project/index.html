@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,13 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Loading Screen -->
     <div id="loading" class="loading-screen">
         <div class="loading-icon">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <polyline points="12,6 12,12 16,14"/>
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12,6 12,12 16,14" />
             </svg>
         </div>
     </div>
@@ -37,9 +40,10 @@
             <div class="clock-container">
                 <!-- Clock Header -->
                 <div class="clock-header">
-                    <svg class="clock-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <polyline points="12,6 12,12 16,14"/>
+                    <svg class="clock-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12,6 12,12 16,14" />
                     </svg>
                     <h1 class="clock-title">Digital Clock</h1>
                 </div>
@@ -79,6 +83,9 @@
                             </div>
                             <div class="time-label">Seconds</div>
                         </div>
+
+                        <!-- Separator -->
+                        <div class="time-separator">:</div>
                         <!-- Mini Seconds -->
                         <div class="time-unit">
                             <div class="time-number-wrapper">
@@ -86,6 +93,17 @@
                                 <div id="miniseconds-glow" class="time-glow">00</div>
                             </div>
                             <div class="time-label">MiniSeconds</div>
+                        </div>
+
+                        <!-- Separator -->
+                        <div class="time-separator">:</div>
+                        <!-- Micro Seconds -->
+                        <div class="time-unit">
+                            <div class="time-number-wrapper">
+                                <div id="microseconds" class="time-number">00</div>
+                                <div id="microseconds-glow" class="time-glow">00</div>
+                            </div>
+                            <div class="time-label">MicroSeconds</div>
                         </div>
                     </div>
                 </div>
@@ -108,4 +126,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

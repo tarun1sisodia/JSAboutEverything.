@@ -205,6 +205,14 @@ body {
     color: #ff0000;
 }
 
+.time-unit:nth-child(7) .time-glow {
+    color: orange;
+}
+
+.time-unit .time-glow {
+    color: red;
+}
+
 .time-unit:hover .time-glow {
     opacity: 0.7;
 }
@@ -228,8 +236,17 @@ body {
 .time-unit:nth-child(5) .time-label {
     color: #93c5fd;
 }
+
 .time-unit:nth-child(6) .time-label {
     color: #ffd414;
+}
+
+.time-unit:nth-child(7) .time-label {
+    color: #a3560f;
+}
+
+.time-unit .time-label {
+    color: #d21818;
 }
 
 .time-separator {
@@ -245,6 +262,15 @@ body {
 .time-separator:nth-child(4) {
     color: #06b6d4;
 }
+
+.time-separator:nth-child(6) {
+    color: #06b6d4;
+}
+
+.time-separator:nth-child(8) {
+    color: #06b6d4;
+}
+
 
 /* Date Display */
 .date-container {

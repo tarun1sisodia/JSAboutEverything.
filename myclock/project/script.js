@@ -1,6 +1,8 @@
+// byterover-retrieve-knowledge
+
 // State management
 let mounted = false;
-let time = { hours: '00', minutes: '00', seconds: '00', miniseconds: '00' };
+let time = { hours: '00', minutes: '00', seconds: '00', miniseconds: '000', microseconds: '000' };
 
 // DOM elements
 const loadingScreen = document.getElementById('loading');
@@ -9,10 +11,12 @@ const hoursElement = document.getElementById('hours');
 const minutesElement = document.getElementById('minutes');
 const secondsElement = document.getElementById('seconds');
 const minisecondsElement = document.getElementById('miniseconds');
+const microsecondsElement = document.getElementById('microseconds'); // Added for microseconds
 const hoursGlow = document.getElementById('hours-glow');
 const minutesGlow = document.getElementById('minutes-glow');
 const secondsGlow = document.getElementById('seconds-glow');
 const minisecondsGlow = document.getElementById('miniseconds-glow');
+const microsecondsGlow = document.getElementById('microseconds-glow'); // Added for microseconds
 const dateElement = document.getElementById('date');
 const particlesContainer = document.getElementById('particles');
 
@@ -30,7 +34,7 @@ function init() {
         // Start the clock
         updateClock();
         setInterval(updateClock, 0);
-    }, 1000);
+    }, 1);
 }
 
 // Create floating particles
@@ -58,12 +62,16 @@ function updateClock() {
     if (!mounted) return;
 
     const now = new Date();
+    const performanceNow = performance.now();
+    const ms = now.getMilliseconds();
+    const micro = Math.floor((performanceNow % 1) * 1000);
 
     const newTime = {
         hours: now.getHours().toString().padStart(2, '0'),
         minutes: now.getMinutes().toString().padStart(2, '0'),
         seconds: now.getSeconds().toString().padStart(2, '0'),
-        miniseconds: now.getMilliseconds().toString().padStart(3, '0')
+        miniseconds: ms.toString().padStart(3, '0'),
+        microseconds: micro.toString().padStart(3, '0')
     };
 
     // Update time display with smooth transitions
@@ -71,6 +79,7 @@ function updateClock() {
     updateTimeElement(minutesElement, minutesGlow, newTime.minutes, time.minutes);
     updateTimeElement(secondsElement, secondsGlow, newTime.seconds, time.seconds);
     updateTimeElement(minisecondsElement, minisecondsGlow, newTime.miniseconds, time.miniseconds);
+    updateTimeElement(microsecondsElement, microsecondsGlow, newTime.microseconds, time.microseconds);
 
     // Update date
     const dateString = now.toLocaleDateString('en-US', {
@@ -87,6 +96,7 @@ function updateClock() {
 
 // Update individual time element with animation
 function updateTimeElement(element, glowElement, newValue, oldValue) {
+    if (!element || !glowElement) return;
     if (newValue !== oldValue) {
         // Add transition class
         element.style.transform = 'scale(1.1)';

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Trail Effect</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: black;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+
+        .coords {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: #222;
+            color: #fff;
+            padding: 0.5em 1em;
+            border-radius: 8px;
+            font-family: monospace;
+            z-index: 1000;
+        }
+
+        .trail {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: red;
+            pointer-events: none;
+            opacity: 0.8;
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="coords">X: <span id="x-axis">0</span>, Y: <span id="y-axis">0</span></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

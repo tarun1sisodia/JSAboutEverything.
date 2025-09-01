@@ -1,0 +1,109 @@
+  {
+    "name": "WTFJS Daily Topic",
+    "nodes": [
+      {
+        "parameters": {
+          "triggerTimes": {
+            "item": [
+              {
+                "hour": 0,
+                "minute": 0
+              }
+            ]
+          }
+        },
+        "name": "Cron",
+        "type": "n8n-nodes-base.cron",
+        "typeVersion": 1,
+        "position": [
+          250,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "url": "https://raw.githubusercontent.com/denysdovhan/wtfjs/master/README.md",
+          "allowUnauthorizedCerts": true,
+          "responseFormat": "string",
+          "options": {}
+        },
+        "name": "Fetch Repo Data",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          450,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "functionCode": "// Input: previous node should have README as plain text\nconst first = items[0] ?? {};\nlet content = '';\n\nif (first.json) {\n  const j = first.json;\n  content =\n    (typeof j.body === 'string' && j.body) ||\n    (typeof j.data === 'string' && j.data) ||\n    (typeof j.content === 'string' && j.content) ||\n    (typeof j === 'string' && j) ||\n    '';\n} else if (typeof first === 'string') {\n  content = first;\n}\n\n// Fallback: try binary content if needed\nif (!content && first.binary) {\n  const key = Object.keys(first.binary)[0];\n  const bin = first.binary[key];\n  if (bin?.data) {\n    try { content = Buffer.from(bin.data, 'base64').toString('utf8'); } catch {}\n  }\n}\n\nif (!content) {\n  return [{ json: { error: 'No README content found' } }];\n}\n\n// Split lines safely\nconst lines = content.split(/\\r?\\n/);\n\n// Find the \"Examples\" section in the ToC and extract each example link\nlet inExamples = false;\nconst out = [];\nfor (const raw of lines) {\n  const line = raw.trim();\n  // Enter Examples list in Table of Contents\n  if (!inExamples && /^\\*\\s*Examples\\b/i.test(line)) {\n    inExamples = true;\n    continue;\n  }\n  if (inExamples) {\n    // Stop when we reach the next top-level bullet (e.g., \"Other resources\")\n    if (/^\\*\\s+[^\\[]/.test(line)) break;\n    // Match lines like \"* [Label](#anchor)\" or \"* [Label](README.md#anchor)\"\n    const m = line.match(/^\\s*[-*]\\s*\\[(.+?)\\]\\((?:README\\.md)?(#.+?)\\)/);\n    if (m) {\n      const title = m[1].trim();\n      const anchor = m[2].trim(); // includes leading '#'\n      // Construct URL using GitHub's readme view + anchor\n      const url = `https://github.com/denysdovhan/wtfjs?tab=readme-ov-file${anchor}`;\n      out.push({ title, url });\n    } else if (out.length > 0 && !/^[\\s*-]/.test(line)) {\n      // End if list formatting changes unexpectedly\n      break;\n    }\n  }\n}\n\n// If none found in ToC, fallback: look for section headings under \"# Examples\"\nif (out.length === 0) {\n  let seenExamplesHeader = false;\n  for (const raw of lines) {\n    const line = raw.trim();\n    if (/^#\\s+Examples\\b/i.test(line)) { seenExamplesHeader = true; continue; }\n    if (seenExamplesHeader) {\n      if (/^#\\s+/.test(line)) break; // next main section\n      const h = line.match(/^##\\s+(.+)/);\n      if (h) {\n        const title = h[1].trim();\n        // Derive GitHub-compatible slug\n        const slug = '#' + title\n          .toLowerCase()\n          .replace(/`/g, '')\n          .replace(/[^a-z0-9\\s-]/g, '-')\n          .replace(/\\s+/g, '-')\n          .replace(/-+/g, '-')\n          .replace(/^-+|-+$/g, '');\n        const url = `https://github.com/denysdovhan/wtfjs?tab=readme-ov-file#${slug.replace(/^#/, '')}`;\n        out.push({ title, url });\n      }\n    }\n  }\n}\n\nif (out.length === 0) {\n  return [{ json: { error: 'No examples found in README' } }];\n}\n\n// Pick one random example and return it\nconst pick = out[Math.floor(Math.random() * out.length)];\nreturn [{ json: { topic: pick.title, link: pick.url } }];"
+        },
+        "name": "Pick a Topic (Random)",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          650,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "requestMethod": "POST",
+          "url": "https://discord.com/api/webhooks/1411760714011639949/XAcQepQBY4eKx-bVCb2epUs6oUJ2xtSntZXV8u1DMYHzepeHIQAdCjNKXjrOeHz0jdog",
+          "allowUnauthorizedCerts": true,
+          "options": {},
+          "bodyParametersUi": {
+            "parameter": [
+              {
+                "name": "=content",
+                "value": "`=📌 Today's WTFJS Topic: ${$json[\"topic\"]}\\n${$json[\"link\"]}`"
+              }
+            ]
+          }
+        },
+        "name": "Send to Discord",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          850,
+          300
+        ]
+      }
+    ],
+    "connections": {
+      "Cron": {
+        "main": [
+          [
+            {
+              "node": "Fetch Repo Data",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Fetch Repo Data": {
+        "main": [
+          [
+            {
+              "node": "Pick a Topic (Random)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Pick a Topic (Random)": {
+        "main": [
+          [
+            {
+              "node": "Send to Discord",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    }
+  }

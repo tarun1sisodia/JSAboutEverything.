@@ -1,0 +1,139 @@
+{
+    "name": "DSA Coach - Suggest Problems",
+    "nodes": [
+        {
+            "parameters": {
+                "triggerTimes": {
+                    "item": [
+                        {
+                            "hour": 9,
+                            "minute": 0
+                        }
+                    ]
+                }
+            },
+            "name": "Cron",
+            "type": "n8n-nodes-base.cron",
+            "typeVersion": 1,
+            "position": [
+                250,
+                250
+            ]
+        },
+        {
+            "parameters": {
+                "requestMethod": "GET",
+                "url": "https://api.github.com/repos/tarun1sisodia/DSA_Domination/git/trees/main?recursive=1",
+                "options": {},
+                "authentication": {
+                    "type": "none"
+                },
+                "responseFormat": "json"
+            },
+            "name": "Fetch GitHub Tree",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 1,
+            "position": [
+                450,
+                180
+            ]
+        },
+        {
+            "parameters": {
+                "sheetId": "<YOUR_SPREADSHEET_ID>",
+                "range": "Sheet1",
+                "options": {
+                    "useHeaderRow": true
+                },
+                "operation": "read"
+            },
+            "name": "Google Sheets - Read Rows",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 1,
+            "position": [
+                450,
+                320
+            ]
+        },
+        {
+            "parameters": {
+                "functionCode": "/* Pick Next Problem (DSA coach) - robust and defensive\n   Expects:\n   - one item from GitHub HTTP node (json.tree array)\n   - many items from Google Sheets (rows as json objects with headers)\n   Connect both previous nodes into this Function node. */\n\nfunction basename(path) {\n  const parts = path.split('/');\n  return parts[parts.length - 1];\n}\nfunction normalizeText(s) {\n  if (!s) return '';\n  return s\n    .toString()\n    .toLowerCase()\n    .replace(/[`'\"\\u2018\\u2019\\u201c\\u201d]/g, '')\n    .replace(/[_\\-]/g, ' ')\n    .replace(/\\.[a-z0-9]+$/i, '')\n    .replace(/[^a-z0-9\\s]/g, ' ')\n    .replace(/\\s+/g, ' ')\n    .trim();\n}\n\n// 1) find GitHub tree item\nlet ghItem = null;\nfor (const it of items) {\n  if (it.json && Array.isArray(it.json.tree)) {\n    ghItem = it.json;\n    break;\n  }\n}\nif (!ghItem) {\n  return [{ json: { error: 'GitHub tree not found in inputs. Make sure Fetch GitHub Tree (git/trees) is connected and responded.' } }];\n}\nconst tree = ghItem.tree || [];\n\n// 2) compute solved set from repo files (filenames normalized)\nconst solvedSet = new Set();\nfor (const entry of tree) {\n  if (entry && entry.type === 'blob' && entry.path) {\n    const name = basename(entry.path);\n    const norm = normalizeText(name);\n    if (norm) solvedSet.add(norm);\n  }\n}\n\n// 3) collect sheet rows (rows are inputs that are objects without a 'tree')\nconst sheetRows = [];\nfor (const it of items) {\n  if (it.json && !Array.isArray(it.json.tree)) {\n    // treat as sheet row only if it has at least one key\n    if (Object.keys(it.json).length > 0) sheetRows.push(it.json);\n  }\n}\n\nif (sheetRows.length === 0) {\n  return [{ json: { error: 'No Google Sheets rows found. Make sure Google Sheets node is connected and returns rows.' } }];\n}\n\n// 4) Normalize sheet rows into problems array\nconst problems = sheetRows.map(row => {\n  const title = row.title || row.Title || row['Problem'] || row['Problem Title'] || row['Name'] || row['Question'] || '';\n  const topic = row.topic || row.Topic || row['Category'] || row['Tag'] || '';\n  const link = row.link || row.Link || row['URL'] || row['Problem Link'] || row['LeetCode'] || row['GFG'] || '';\n  const statusRaw = (row.status || row.Status || row['Done'] || '').toString().trim();\n  const difficulty = row.difficulty || row.Difficulty || row['Level'] || '';\n  return {\n    title: (title || '').toString().trim(),\n    topic: (topic || '').toString().trim(),\n    link: (link || '').toString().trim(),\n    status: statusRaw.toLowerCase(),\n    difficulty: (difficulty || '').toString().trim()\n  };\n}).filter(p => p.title);\n\nif (problems.length === 0) {\n  return [{ json: { error: 'No valid problem rows parsed from Google Sheets (check header names).' } }];\n}\n\n// 5) mark solved by comparing normalized titles to solvedSet\nfor (const p of problems) {\n  const n = normalizeText(p.title);\n  p.solvedInRepo = solvedSet.has(n);\n}\n\n// 6) create unsolved list (status != solved and not solvedInRepo)\nconst unsolved = problems.filter(p => {\n  const statusSolved = p.status && ['solved', 'done', 'yes', 'true'].includes(p.status.toString().toLowerCase());\n  return !statusSolved && !p.solvedInRepo;\n});\n\nif (unsolved.length === 0) {\n  return [{ json: { message: 'All problems appear solved (sheet and repo). No suggestion.' } }];\n}\n\n// 7) selection strategy\nconst solvedTopics = {};\nfor (const p of problems) {\n  if (p.solvedInRepo) {\n    const t = (p.topic || 'Misc').toLowerCase();\n    solvedTopics[t] = (solvedTopics[t] || 0) + 1;\n  }\n}\nlet preferredTopic = null;\nif (Object.keys(solvedTopics).length > 0) {\n  preferredTopic = Object.entries(solvedTopics).sort((a,b)=>b[1]-a[1])[0][0];\n}\n\nlet candidates = [];\nif (preferredTopic) {\n  candidates = unsolved.filter(p => (p.topic || '').toLowerCase() === preferredTopic);\n}\nif (candidates.length === 0) {\n  candidates = unsolved.filter(p => /easy/i.test(p.difficulty));\n}\nif (candidates.length === 0) {\n  candidates = unsolved.filter(p => /medium/i.test(p.difficulty));\n}\nif (candidates.length === 0) {\n  candidates = unsolved;\n}\n\nconst pick = candidates[Math.floor(Math.random() * candidates.length)];\n\nreturn [{\n  json: {\n    suggestion: {\n      title: pick.title,\n      topic: pick.topic,\n      link: pick.link,\n      difficulty: pick.difficulty || '',\n      reason: preferredTopic ? `Preferred topic: ${preferredTopic}` : 'Balanced pick'\n    },\n    stats: {\n      totalProblems: problems.length,\n      unsolved: unsolved.length,\n      solvedInRepoSample: Array.from(solvedSet).slice(0,10)\n    }\n  }\n}];\n"
+            },
+            "name": "Pick Next Problem (Function)",
+            "type": "n8n-nodes-base.function",
+            "typeVersion": 1,
+            "position": [
+                650,
+                250
+            ]
+        },
+        {
+            "parameters": {
+                "requestMethod": "POST",
+                "url": "<YOUR_DISCORD_WEBHOOK_URL>",
+                "options": {},
+                "bodyParametersUi": {
+                    "parameter": [
+                        {
+                            "name": "content",
+                            "value": "= \"📌 Today's DSA Challenge: \" + $json[\"suggestion\"].title + \"\\n🔗 \" + $json[\"suggestion\"].link + \"\\n💡 Topic: \" + $json[\"suggestion\"].topic + ($json[\"suggestion\"].difficulty ? (\"\\n⚙️ Difficulty: \" + $json[\"suggestion\"].difficulty) : \"\")"
+                        }
+                    ]
+                }
+            },
+            "name": "Send to Discord",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 1,
+            "position": [
+                850,
+                250
+            ]
+        }
+    ],
+    "connections": {
+        "Cron": {
+            "main": [
+                [
+                    {
+                        "node": "Fetch GitHub Tree",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Fetch GitHub Tree": {
+            "main": [
+                [
+                    {
+                        "node": "Pick Next Problem (Function)",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Google Sheets - Read Rows": {
+            "main": [
+                [
+                    {
+                        "node": "Pick Next Problem (Function)",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Pick Next Problem (Function)": {
+            "main": [
+                [
+                    {
+                        "node": "Send to Discord",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

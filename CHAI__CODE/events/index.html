@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HTMl Events</title>
+    <style>
+        body {
+            background-color: black;
+            color: bisque;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Amazing image</h2>
+    <div>
+        <ul id="images">
+            <li><img width="200px" id="photoshop"
+                    src="https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600&amp;lazy=load"
+                    alt="photoshop" /></li>
+            <!-- alt="photoshop" onclick="alert('Photoshop');" /></li> -->
+            <!-- Don't use onclick directly in buttons or anything in html use script and addEventListener as much you can -->
+            <li><img width="200px" id="japan"
+                    src="https://images.pexels.com/photos/3532553/pexels-photo-3532553.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600&amp;lazy=load"
+                    alt="" /></li>
+            <li><img width="200px" id="river"
+                    src="https://images.pexels.com/photos/3532551/pexels-photo-3532551.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600&amp;lazy=load"
+                    alt="" /></li>
+            <li><img width="200px" id="owl"
+                    src="https://images.pexels.com/photos/3532552/pexels-photo-3532552.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600&amp;lazy=load"
+                    alt="" /></li>
+            <li><img width="200px" id="mountain"
+                    src="https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600&amp;lazy=load"
+                    alt="mountain" /></li>
+            <li><img width="200px" id="bear"
+                    src="https://images.unsplash.com/photo-1755519371418-2e0737bbfc9b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=compress&amp;cs=tinysrgb&amp;w=1600&amp;lazy=load"
+                    alt="forest" /></li>
+            <li><img width="200px" id="beach"
+                    src="https://images.pexels.com/photos/457882/pexels-photo-457882.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600&amp;lazy=load"
+                    alt="beach" /></li>
+            <li><a href="https://www.perplexity.ai" id="perplexity">Perplexity</a></li>
+        </ul>
+    </div>
+</body>
+<script>
+    // document.getElementById('owl').onclick = function () { alert("less feature") };
+    /*    document.getElementById('owl').addEventListener('click', function (e) {
+           console.log(e);
+       }); */
+    //attachEvent == old way
+    //jQuery = .on -- another way to add
+    //TimeStamp, type, defaultPrevent()
+    //target, toElement, srcElement,currentTarget
+    //clientX, clientY, screenX, screenY
+    //altkey, keycode, shiftkey, ctrlkey
+    /*   document.getElementById('images').addEventListener('click', function (e) {
+          console.log('Images Ui');
+      }, false);
+  
+      document.getElementById('bear').addEventListener('click', function (e) {
+          console.log("BEar Clicked");
+          e.stopPropagation();
+      }, true);
+  
+      }, false); */
+
+    document.getElementById('perplexity').addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('PerPlexity');
+    });
+
+    let ul = document.querySelector('#images');
+    ul.addEventListener('click', function (e) {
+        // console.log(e.target);
+        console.log(e.target.parentNode);
+        console.log(e.target.tagName); // to get the Tag Name
+        if (e.target.tagName === "IMG") {
+            console.log(e.target.id);
+
+            let removeItem = e.target.parentNode;
+            // removeItem.remove();
+            removeItem.parentNode.removeChild(removeItem);
+        }
+    }, false);
+</script>
+
+</html>

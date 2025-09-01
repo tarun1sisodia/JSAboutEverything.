@@ -19,9 +19,10 @@ document.addEventListener('mousemove', function (e) {
 
     let trail = document.createElement('div');
     trail.classList.add('trail');
-    trail.style.left = e.clientX + "px";
     trail.style.top = e.clientY + "px";
+    trail.style.left = e.clientX + "px";
     trail.style.backgroundColor = randomColor();
+    // trail.style.backgroundColor = 'yellow';
     document.body.appendChild(trail);
 
     setTimeout(() => {

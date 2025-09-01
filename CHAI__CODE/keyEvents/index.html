@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Events</title>
+    <style>
+        body {
+            background-color: black;
+            color: bisque;
+        }
+
+        h2 {
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 id="key">Key Testing</h2>
+    <p id="info"></p>
+
+</body>
+<script>
+    document.addEventListener('keydown', function (e) {
+        console.log(`Key:${e.key}`);
+        console.log(`Code: ${e.keyCode}`);
+        console.log(`Code: ${e.code}`);
+        console.log(`Shift PRess: ${e.shiftKey}`);
+
+        let h2 = document.getElementById('key');
+        h2.textContent = e.key;
+        info.textContent = `Code: ${e.code} | KeyCode: ${e.keyCode} | Shift: ${e.shiftKey} | Ctrl: ${e.ctrlKey} | Alt: ${e.altKey}`;
+        
+        if (e.key === 't') document.body.style.backgroundColor = 'Red';
+    }, false);
+    document.addEventListener('keyup', function (e) {
+        console.log(`Key released ${e.key}`);
+    }, false);
+</script>
+
+</html>

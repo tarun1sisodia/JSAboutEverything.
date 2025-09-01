@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Line Trail</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: black;
+            overflow: hidden;
+            font-family: sans-serif;
+            cursor: crosshair;
+        }
+
+        .coords {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: #222;
+            color: #fff;
+            padding: 0.5em 1em;
+            border-radius: 8px;
+            font-family: monospace;
+            z-index: 1000;
+        }
+
+        .line {
+            position: absolute;
+            height: 15px;
+            /* thicker line */
+            background-color: white;
+            /* always white */
+            pointer-events: none;
+            opacity: 0.8;
+            transition: opacity 0.7s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="coords">X: <span id="x-axis">0</span>, Y: <span id="y-axis">0</span></div>
+
+    <script>
+        const x = document.getElementById('x-axis');
+        const y = document.getElementById('y-axis');
+
+        let prevX = null;
+        let prevY = null;
+
+        function drawLine(x1, y1, x2, y2) {
+            const line = document.createElement('div');
+            line.classList.add('line');
+
+            // Distance and angle
+            const length = Math.hypot(x2 - x1, y2 - y1);
+            line.style.width = length + 'px';
+            line.style.left = x1 + 'px';
+            line.style.top = y1 + 'px';
+
+            const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
+            line.style.transform = `rotate(${angle}deg)`;
+            line.style.transformOrigin = '0 0';
+
+            document.body.appendChild(line);
+
+            // Fade out
+            setTimeout(() => {
+                line.style.opacity = 0;
+            }, 0);
+
+            // Remove element
+            setTimeout(() => {
+                line.remove();
+            }, 700);
+        }
+
+        document.addEventListener('mousemove', function (e) {
+            x.textContent = e.clientX;
+            y.textContent = e.clientY;
+
+            if (prevX !== null && prevY !== null) {
+                drawLine(prevX, prevY, e.clientX, e.clientY);
+            }
+
+            prevX = e.clientX;
+            prevY = e.clientY;
+        });
+    </script>
+</body>
+
+</html>

@@ -27,10 +27,10 @@ document.addEventListener('mousemove', function (e) {
     setTimeout(() => {
         trail.style.opacity = 0;
         trail.style.transform = 'scale(2)';
-    }, 0);
+    }, 50);
 
     setTimeout(() => {
         trail.remove();
-    }, 500);
+    }, 1000);
 
 });

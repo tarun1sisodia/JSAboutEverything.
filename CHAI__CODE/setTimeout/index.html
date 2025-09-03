@@ -25,6 +25,7 @@
     let div = document.createElement('div');
     let h1 = document.createElement('h1');
     let btn = document.createElement('button');
+    let btn1 = document.createElement('button');
     let p = document.createElement('p');
 
     div.setAttribute('class', 'parent');
@@ -32,19 +33,37 @@
     h1.setAttribute('id', 'mode');
     p.textContent = "Call Stack works with Queues";
     btn.textContent = "Stop";
+    btn1.textContent = "Start";
     btn.setAttribute('id', 'button');
+    btn1.setAttribute('id', 'button1');
 
     const appendChilds = function () {
         document.body.appendChild(div);
         div.appendChild(h1);
         div.appendChild(p);
     }
+    document.body.appendChild(btn1);
     document.body.appendChild(btn);
-    const changeMe = setTimeout(appendChilds, 5000);
+    //we have to provide the id to the to setTimeout so it can be used to stop & clear.. Whatever you understand it.
+
+
+    const changeMe = setTimeout(appendChilds, 1000);
     // clearTimeout(changeMe);
-    btn.addEventListener('click', function (e) {
-        clearTimeout(changeMe);
-    }, false);
+    // btn.addEventListener('click', function (e) {
+    //     clearTimeout(changeMe);
+    // }, false);
+
+    btn1.addEventListener('click', startInterval);
+
+
+    let startInterval = setInterval(print, 1000);
+
+    let print = function () {
+        let date = Date.now();
+        console.log(date);
+    };
+
+
 </script>
 
 </html>

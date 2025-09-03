@@ -24,18 +24,39 @@
 
 </body>
 <script>
+    let h2 = document.getElementById('key');
+    let p = document.getElementById('info');
+    const randomColor = function () {
+        let color = "#";
+        const hex = "0123456789ABCDEF";
+        for (let i = 0; i < 6; i++) {
+            color += hex[Math.floor(Math.random() * 16)];
+        };
+        return color;
+    }
+
+    const changeColor = function () {
+        document.body.style.backgroundColor = randomColor();
+        h2.style.backgroundColor = randomColor();
+        p.style.backgroundColor = randomColor();
+        h2.style.color = randomColor();
+        p.style.color = randomColor();
+
+    };
+
     document.addEventListener('keydown', function (e) {
+        changeColor();
         console.log(`Key:${e.key}`);
         console.log(`Code: ${e.keyCode}`);
         console.log(`Code: ${e.code}`);
         console.log(`Shift PRess: ${e.shiftKey}`);
 
-        let h2 = document.getElementById('key');
         h2.textContent = e.key;
         info.textContent = `Code: ${e.code} | KeyCode: ${e.keyCode} | Shift: ${e.shiftKey} | Ctrl: ${e.ctrlKey} | Alt: ${e.altKey}`;
-        
-        if (e.key === 't') document.body.style.backgroundColor = 'Red';
+        // if (e.key === 't') document.body.style.backgroundColor = 'Red';
     }, false);
+
+
     document.addEventListener('keyup', function (e) {
         console.log(`Key released ${e.key}`);
     }, false);

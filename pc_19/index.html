@@ -1,12 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PC 19</title>
+    <title>Call Notes</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1>Welcome to PC 19</h1>
+
+    <!-- CARD (default view) -->
+    <div class="container">
+        <div class="side-buttons">
+            <button id="add-note">+</button>
+            <button>↑</button>
+            <button>↓</button>
+        </div>
+
+        <div class="call-card">
+            <div class="card-header">
+                <div class="avatar"><img src="https://via.placeholder.com/50" alt=""></div>
+                <div>
+                    <h3 id="cardName">Fatima Uma</h3>
+                    <p id="cardTown">Singapore</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-row"><span>Home town</span><span id="town">Singapore</span></div>
+                <div class="card-row"><span>Bookings</span><span>3 times</span></div>
+                <div class="card-actions">
+                    <button class="btn-card btn-call">📞 Call</button>
+                    <button class="btn-card btn-message">Message</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Colors on right -->
+        <div class="colors">
+            <div class="dot black"></div>
+            <div class="dot purple"></div>
+            <div class="dot brown"></div>
+            <div class="dot teal"></div>
+        </div>
+    </div>
+
+    <!-- FORM (hidden initially) -->
+    <div class="form-container">
+        <h2>New Call</h2>
+        <label>Image URL</label>
+        <input required type="text" placeholder="https://example.com/photo.jpg" />
+
+        <label>Full Name</label>
+        <input required type="text" placeholder="Enter full name" />
+
+        <label>Home Town</label>
+        <input required type="text" placeholder="Enter home town" />
+
+        <label>Purpose</label>
+        <input required type="text" placeholder="e.g., Quick appointment note" />
+
+        <label>Category</label>
+        <label class="tag-checkbox"><input required type="radio" name="category" value="emergency" />Emergency</label>
+        <label class="tag-checkbox"><input required type="radio" name="category" value="important" />Important</label>
+        <label class="tag-checkbox"><input required type="radio" name="category" value="urgent" />Urgent</label>
+        <label class="tag-checkbox"><input required type="radio" name="category" value="norush" />No Rush</label>
+
+        <button type="button" class="submit-btn">Create Note</button>
+        <button type="button" class="closeForm">Close</button>
+    </div>
+
     <script src="script.js"></script>
 </body>
+
 </html>

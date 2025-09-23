@@ -164,4 +164,4 @@ formContainer.addEventListener('submit', function (evt) {
 closeFormBtn.addEventListener('click', hideForm);
 overlay.addEventListener('click', hideForm);
 
-// Initial
+// Initial.
